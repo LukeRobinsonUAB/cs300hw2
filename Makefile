@@ -6,9 +6,9 @@ CXX = g++
 # Compiler flags
 CXXFLAGS = -std=c++23
 # Target executable name
-TARGET = lab4
+TARGET = hw2
 # Source files, list all cpp files here
-SRCS = main.cpp
+SRCS = main.cpp event.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
