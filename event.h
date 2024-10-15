@@ -15,9 +15,7 @@ class Event {
         //event is abstract base class
         //force each type of event to override details as they have diff details
         virtual std::string getDetails() = 0;
-
         bool isUpcoming();
-
         std::string getName();
         std::tm getDate();
 
@@ -27,7 +25,6 @@ class Event {
         std::tm eventDate = {};
         std::string eventName;
         std::string eventLocation;
-
 };
 
 class Concert : public Event {
@@ -38,20 +35,17 @@ public:
 protected:
     std::string band;
     std::string genre;
-
-
 };
 
 class Conference : public Event {
 public:
+    Conference(int year, int mon, int day, int hour, int min, std::string eventName, std::string eventLocation, std::string confTopic, std::vector<std::string> cList);
     std::string getDetails() override;
     //bool isUpcoming();
 protected:
-    std::vector<std::string> speakerList;
     std::string confTopic;
-
+    std::vector<std::string> speakerList;
 };
-
 
 /*
 class newEventType : public Event {

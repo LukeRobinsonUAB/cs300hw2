@@ -58,6 +58,13 @@ std::string Concert::getDetails() {
 
 //CONF IMPL//
 
+Conference::Conference(int year, int mon, int day, int hour, int min, std::string ceventName, std::string ceventLocation, std::string cTopic, std::vector<std::string> cList) 
+   : Event(year, mon, day, hour, min, ceventName, ceventLocation)
+   {
+      this->confTopic = cTopic;
+      this->speakerList = cList;
+   }
+
 std::string Conference::getDetails() {
    std::string conferenceDetails = "Conference: \n";
    conferenceDetails += "name: " + this->eventName + '\n' + "location: " + this->eventLocation + '\n' + "date: " + std::to_string(this->eventDate.tm_mon) + "/" + std::to_string(this->eventDate.tm_mday) + "/" + std::to_string(this->eventDate.tm_year) + std::to_string(this->eventDate.tm_hour) + ":" + std::to_string(this->eventDate.tm_min) + '\n';

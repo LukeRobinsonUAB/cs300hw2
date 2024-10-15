@@ -1,6 +1,7 @@
 #include <iostream>
 #include "event.h"
 #include <ctime>
+#include <sstream>
 
 bool compareTime(const std::tm& time1, const std::tm& time2) {
     time_t t1 = mktime(const_cast<std::tm*>(&time1));
@@ -10,14 +11,15 @@ bool compareTime(const std::tm& time1, const std::tm& time2) {
 
 using namespace std;
 int main() {
-    cout << "compiles?" << endl;
     std::vector<Event*> eventList;
 
-    Concert* conc1 = new Concert(2024, 11, 2, 14, 30, "ChristmasMusic", "MSG", "bandnametbd", "rocknroll");
-    Conference* conf1 = new Conference();
+    //sample input to fill stuff and test search func
+    Concert* conc1 = new Concert(2024, 11, 2, 14, 30, "ChristmasMusic", "MSG", "bandnametbd", "rocknroll"); //sample input to fill stuff
+    Concert* conc2 = new Concert(2024, 12, 15, 20, 00, "Jazz Night", "Blue Note Jazz Club", "Miles Davis Quintet", "Jazz");
+    Concert* conc3 = new Concert(2024, 10, 20, 19, 15, "Classical Evening", "Sydney Opera House", "Vienna Philharmonic", "Classical");
     eventList.push_back(conc1);
-    eventList.push_back(conf1);
-  
+    eventList.push_back(conc2);
+    eventList.push_back(conc3);
 
     while (true) {
         cout << "enter the corresponding number to select a menu option" << endl;
@@ -37,11 +39,55 @@ int main() {
                 int eventType;
                 cin >> eventType;
                 if (eventType == 1) {
-                    Concert* conc = new Concert(2025, 11, 30, 20, 0, "Halloween Party", "HauntedHouse", "ghostband", "classical");
+                    int year, mon, day, hour, min;
+                    std::string syear, smon, sday, shour, smin, name, loc, band, genre;
+                    cout << "Enter info as \"year, month, day, hour, minute, event name, location, band, genre\"" << endl;
+                    std::getline(std::cin, syear, ',');
+                    year = std::stoi(syear);
+                    std::getline(std::cin, smon, ',');
+                    mon = std::stoi(smon);
+                    std::getline(std::cin, sday, ',');
+                    day = std::stoi(sday);
+                    std::getline(std::cin, shour, ',');
+                    hour = std::stoi(shour);
+                    std::getline(std::cin, smin, ',');
+                    min = std::stoi(smin);
+                    std::getline(std::cin, name, ',');
+                    std::getline(std::cin, loc, ',');
+                    std::getline(std::cin, band, ',');
+                    std::getline(std::cin, genre, '\n');
+
+                    Concert* conc = new Concert(year, mon, day, hour, min, name, loc, band, genre);
                     eventList.push_back(conc);
                 }
                 else if (eventType == 2) {
-                    Conference* conf = new Conference();
+                    int year, mon, day, hour, min;
+                    std::string syear, smon, sday, shour, smin, name, loc, topic, temp;
+                    cout << "Enter info as \"year, month, day, hour, minute, event name, location, conference topic, speaker1, speaker2, ... etc\"" << endl;
+                    std::getline(std::cin, syear, ',');
+                    year = std::stoi(syear);
+                    std::getline(std::cin, smon, ',');
+                    mon = std::stoi(smon);
+                    std::getline(std::cin, sday, ',');
+                    day = std::stoi(sday);
+                    std::getline(std::cin, shour, ',');
+                    hour = std::stoi(shour);
+                    std::getline(std::cin, smin, ',');
+                    min = std::stoi(smin);
+                    std::getline(std::cin, name, ',');
+                    std::getline(std::cin, loc, ',');
+                    std::getline(std::cin, topic, ',');
+                    std::getline(std::cin, temp, '\n');
+                    std::vector<std::string> speakerNames;
+                    std::stringstream ss(temp);
+                    std::string nameTemp;
+                     while (std::getline(ss, nameTemp, ',')) {
+                        if (!nameTemp.empty() && nameTemp[0] == ' ') {
+                            nameTemp.erase(0, 1);
+                        }
+                        speakerNames.push_back(nameTemp);
+                    }
+                    Conference* conf = new Conference(year, mon, day, hour, min, name, loc, topic, speakerNames);
                     eventList.push_back(conf);
                 }
                /*else if (eventType == 3) {
