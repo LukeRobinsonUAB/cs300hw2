@@ -19,6 +19,7 @@ class Event {
         bool isUpcoming();
 
         std::string getName();
+        std::tm getDate();
 
     //protected allows subclasses to edit their own attributes rather than have to rely on functions
     //in Base class to modify a child object
@@ -52,5 +53,15 @@ protected:
 };
 
 
+/*
+class newEventType : public Event {
+    public:
+        newEventType();
+        std::string getDetails() override;
+
+    protected:
+        //unique stuff to this event
+};
+*/
 
 #endif

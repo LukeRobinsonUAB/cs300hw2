@@ -20,6 +20,7 @@ Event::Event(int year, int mon, int day, int hour, int min, std::string ceventNa
    this->eventLocation = ceventLocation;
 }
 
+//isUpcoming checks if event has happened. maybe its supposed to return true if the event is within a week or something? ambiguous name.
 bool Event::isUpcoming() {
    std::time_t currentTime = std::time(nullptr);
    std::tm* currentDate = std::localtime(&currentTime);
@@ -28,11 +29,15 @@ bool Event::isUpcoming() {
    if (timeDate > timeCurrent) {
       return true; //event has NOT happened
    }
-      return false; //event already happened
-   }
+   return false; //event already happened
+}
 
 std::string Event::getName() {
    return this->eventName;
+}
+
+std::tm Event::getDate() {
+   return this->eventDate;
 }
 
 ///CONCERT IMPL//
@@ -45,7 +50,7 @@ Concert::Concert(int year, int mon, int day, int hour, int min, std::string ceve
 
 std::string Concert::getDetails() {
    std::string concertDetails = "Concert: \n";
-   concertDetails += "name: " + this->eventName + '\n' + "location: " + this->eventLocation + '\n' + "date: " + std::to_string(this->eventDate.tm_mon) + "/" + std::to_string(this->eventDate.tm_mday) + "/" + std::to_string(this->eventDate.tm_year) + std::to_string(this->eventDate.tm_hour) + ":" + std::to_string(this->eventDate.tm_min) + '\n';
+   concertDetails += "name: " + this->eventName + '\n' + "location: " + this->eventLocation + '\n' + "date: " + std::to_string(this->eventDate.tm_mon) + "/" + std::to_string(this->eventDate.tm_mday) + "/" + std::to_string(this->eventDate.tm_year) + " " + std::to_string(this->eventDate.tm_hour) + ":" + std::to_string(this->eventDate.tm_min) + '\n';
    concertDetails += "band: " + this->band + '\n' + "genre: " + this->genre + '\n';
    return concertDetails; 
 }
